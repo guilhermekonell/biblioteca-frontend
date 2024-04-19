@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
 import { Book, BookOpen, Library } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 export function Sidebar() {
+  const {theme, setTheme} = useTheme();
+
+  function handleChangeTheme() {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  }
+
   return (
-    <div className="flex flex-col h-full min-w-64 border-r bg-gray-100 dark:border-gray-800 dark:bg-gray-900">
-      <div className="flex w- h-16 items-center justify-between px-4 border-b">
+    <div className="flex flex-col h-full justify-between min-w-64 border-r bg-gray-100 dark:border-gray-800 dark:bg-gray-900">
+      <div className="flex flex-col">
+      <div className="flex h-16 items-center justify-between px-4 border-b">
         <Link to="/" className="flex items-center gap-2 font-semibold">
           <BookOpen className="h-6 w-6" />
           <span>Biblioteca</span>
@@ -31,6 +41,11 @@ export function Sidebar() {
           </Link>
         </div>
       </nav>
+      </div>
+      <div className="flex items-center justify-center space-x-2 py-4 border-t">
+        <Label htmlFor="theme-mode">Tema</Label>
+        <Switch id="theme-mode" onClick={() => handleChangeTheme()} />
+      </div>
     </div>
   );
 }
